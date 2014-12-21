@@ -23,6 +23,7 @@
 	## Train and test sets are defined by having different volunteers. 
 
 	trainvolunteer <- read.table("UCI HAR Dataset/train/subject_train.txt")
+	testvolunteer <- read.table("UCI HAR Dataset/test/subject_test.txt")
 
 	## Reading 561 descriptive column names for the 'feature vectors' (X data) 
 	## Features are the 561 variables in columns for both trainX and testX
