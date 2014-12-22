@@ -75,7 +75,8 @@ Once reassembled, rows are further summarized by factor variables, i.e., taking 
 
 ###Factor Variables (complete variable list appears at end):
 
-30 Subjects (“Volunteers”). 30 volunteer subjects 
+30 Subjects (“Volunteers”). 
+Units: 30 volunteer subjects are identified by anonymous number, not by name
 The script identifies them as “Volunteers” for clarity, to distinguish between topics of interest
 
 The raw data has a subject files separated from the data collection, identifying the Volunteer for each observation:
@@ -83,14 +84,17 @@ The raw data has a subject files separated from the data collection, identifying
 *	“subject_test.txt”
 These must be reassembled together by row and processed (as a column) for the final tidy version.
 
-6 Activities. Volunteers engage in 6 different activities:
-
+6 Activities. Volunteers engage in 6 different activities
+Identified by descriptive labels:
 1.	WALKING
 2.	WALKING_UPSTAIRS
 3.	WALKING_DOWNSTAIRS
 4.	SITTING
 5.	STANDING
-6.	LAYING\
+6.	LAYING
+
+In the spirit of tidy data, descriptive labels of activities did need to be created in the final tidy dataset,
+as opposed to 'keys' or 'codes'. So each activity code has been replaced by the labels above.
 
 Volunteers engage in these activities while “wearing a smartphone (Samsung Galaxy S II) on the waist…” 
 to generate motion data information. (Anguita, et.al.)
@@ -101,11 +105,15 @@ The raw data includes separate files denoting the activity codes for each observ
 The raw data also includes another file “decoding” the activity identifier with descriptive labels:
 *	“activity_labels.txt”
 
+
+
 ###Quantitative Variables
 
 Quantitative (continuous) variables are named in the raw data as a 561-feature vector, with time and frequency domain variables. 
 The features include acceleration signal components and other variables estimated from the signals, 
 including mean and standard deviations.
+
+Units: all quantitative variables are normalized to unit-less values between -1 and 1.
 
 The 561-feature vectors are originally provided in these files:
 *	“X_train.txt”
@@ -131,49 +139,66 @@ Conservatism drove the selection of ALL variables containing  the strings "mean"
 "Volunteer"       also known as subjects or volunteer subjects                
 "Activity_Label"  Sitting, Walking, etc. of 6 activities                    
 
-Used these 86 variables from the 561-feature vector.
-Collected or computed motion data, including the strings “mean” or “std” as it is understood the user wants all variables with mean or standard deviation information. Both capital and lower case captured.
-1.	"tBodyAcc.mean...X"                    
+Used the following 86 uniquely-named variables from the 561-feature vector.
+
+Naming: Although one can imagine many other descriptive names and can take the time to rename them,
+the approach here is that this is not the place of the data processor who is not included in the collection or 
+the analysis. 
+
+Errors and duplicates in naming exist in the original file, and the appropriate corrections can't be assumed correct.
+The knowledge/insight available to the data cleaner is at best marginally more descriptive.
+
+Therefore, referencing the discussion forum on this topic, it is assumed that the descriptive labels found in the provided
+file are "descriptive" enough. Changing t to time and f to freq is not particularly useful (by this interpretation)
+https://class.coursera.org/getdata-016/forum/thread?thread_id=50
+
+Collected or computed motion data, including the strings “mean” or “std” as it is understood the user wants 
+all variables with mean or standard deviation information. Both capital and lower case captured.
+
+It is not really the scope of the data processing step to define the collection variables, but basic
+information is provided for convenience.
+
+1.	"tBodyAcc.mean...X"                   time domain acceleration in 3-D relative to body, means
 2.	"tBodyAcc.mean...Y"                   
 3.	"tBodyAcc.mean...Z"
-4.	"tBodyAcc.std...X"                    
+4.	"tBodyAcc.std...X"                    time domain acceleration in 3-D relative to body, std deviations
 5.	"tBodyAcc.std...Y"
 6.	"tBodyAcc.std...Z"                    
-7.	"tGravityAcc.mean...X"                 
+7.	"tGravityAcc.mean...X"                 time domain acceleration in 3-D relative to gravity, means
 8.	"tGravityAcc.mean...Y"                
 9.	"tGravityAcc.mean...Z"
-10.	"tGravityAcc.std...X"
+10.	"tGravityAcc.std...X"					time domain acceleration in 3-D relative to gravity, std deviations
 11.	"tGravityAcc.std...Y"
 12.	"tGravityAcc.std...Z"                 
-13.	"tBodyAccJerk.mean...X"
+13.	"tBodyAccJerk.mean...X"					time domain jerk acceleration in 3-D relative to body, means
 14.	"tBodyAccJerk.mean...Y"               
 15.	"tBodyAccJerk.mean...Z"
-16.	"tBodyAccJerk.std...X"                
+16.	"tBodyAccJerk.std...X"                time domain jerk acceleration in 3-D relative to body, std deviation
 17.	"tBodyAccJerk.std...Y"
 18.	"tBodyAccJerk.std...Z"                
-19.	"tBodyGyro.mean...X"
+19.	"tBodyGyro.mean...X"					time domain gyro acceleration in 3-D relative to body, means
 20.	"tBodyGyro.mean...Y"
 21.	"tBodyGyro.mean...Z"                   
-22.	"tBodyGyro.std...X"                   
+22.	"tBodyGyro.std...X"                   time domain gyro acceleration in 3-D relative to body, std deviations
 23.	"tBodyGyro.std...Y"                    
 24.	"tBodyGyro.std...Z"                   
-25.	"tBodyGyroJerk.mean...X"               
+25.	"tBodyGyroJerk.mean...X"               time domain gyro jerk acceleration in 3-D, means
 26.	"tBodyGyroJerk.mean...Y"              
 27.	"tBodyGyroJerk.mean...Z"               
-28.	"tBodyGyroJerk.std...X"               
+28.	"tBodyGyroJerk.std...X"               time domain gyro jerk acceleration in 3-D, std deviation
 29.	"tBodyGyroJerk.std...Y"                
 30.	"tBodyGyroJerk.std...Z"               
-31.	"tBodyAccMag.mean.."                   
-32.	"tBodyAccMag.std.."                   
-33.	"tGravityAccMag.mean.."                
-34.	"tGravityAccMag.std.."                
+31.	"tBodyAccMag.mean.."                   	time domain magnetic acceleration in 3-D relative to body, mean
+32.	"tBodyAccMag.std.."                   	time domain magnetic acceleration in 3-D relative to body, mean
+33.	"tGravityAccMag.mean.."                	time domain magnetic acceleration in 3-D relative to gravity, mean
+34.	"tGravityAccMag.std.."                	time domain magnetic acceleration in 3-D relative to gravity, mean
 35.	"tBodyAccJerkMag.mean.."               
 36.	"tBodyAccJerkMag.std.."               
 37.	"tBodyGyroMag.mean.."                  
 38.	"tBodyGyroMag.std.."                  
 39.	"tBodyGyroJerkMag.mean.."              
 40.	"tBodyGyroJerkMag.std.."              
-41.	"fBodyAcc.mean...X"                    
+41.	"fBodyAcc.mean...X"                    repeats for frequency domain
 42.	"fBodyAcc.mean...Y"                   
 43.	"fBodyAcc.mean...Z"                    
 44.	"fBodyAcc.std...X"                    
@@ -197,7 +222,7 @@ Collected or computed motion data, including the strings “mean” or “std”
 62.	"fBodyGyro.std...X"                   
 63.	"fBodyGyro.std...Y"                    
 64.	"fBodyGyro.std...Z"                   
-65.	"fBodyGyro.meanFreq...X"               
+65.	"fBodyGyro.meanFreq...X"               some measurements like these are included as computed cols of interest
 66.	"fBodyGyro.meanFreq...Y"              
 67.	"fBodyGyro.meanFreq...Z"               
 68.	"fBodyAccMag.mean.."                  
@@ -212,7 +237,7 @@ Collected or computed motion data, including the strings “mean” or “std”
 77.	"fBodyBodyGyroJerkMag.mean.."          
 78.	"fBodyBodyGyroJerkMag.std.."          
 79.	"fBodyBodyGyroJerkMag.meanFreq.."      
-80.	"angle.tBodyAccMean.gravity."         
+80.	"angle.tBodyAccMean.gravity."         			notice some measurements include refer to angles of some of the above
 81.	"angle.tBodyAccJerkMean..gravityMean."
 82.	"angle.tBodyGyroMean.gravityMean."    
 83.	"angle.tBodyGyroJerkMean.gravityMean." 
